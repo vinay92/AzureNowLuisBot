@@ -8,9 +8,10 @@ https://aka.ms/abs-node-luis
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 var path = require('path');
+var request = require('request');
+var querystring = require('querystring');
 
 var useEmulator = (process.env.NODE_ENV == 'development');
-
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
     appId: process.env['MicrosoftAppId'],
     appPassword: process.env['MicrosoftAppPassword'],
@@ -57,7 +58,29 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 })
 
 .matches('Price', (session, args) => {
-    session.send('I have all the information I need. Generating the ARM template and the price');
+    session.send(JSON.stringify(args));
+    session.send('I have all the information I need. Generating the ARM template and the price...');
+    var data = {
+                    "Services" : [
+                        "Website",
+                        "Cache",
+                        "SQLDB"
+                    ],
+                    "Price" : 2500,
+                    "SessionId" : "04eb7df7-82bf-477c-a350-1a77e3abca67"
+                };
+    request({
+            headers: {
+                        'Content-Type' : 'application/json'
+                    },
+            url: 'http://templatehackbot.azurewebsites.net/api/templates',
+            json: data,
+            //body: JSON.stringify(data),
+            method: 'POST'
+            }, function (err, res, body) {
+                var templateString = 'The template link is - ' +  body['TemplateLink'];
+                session.send(templateString);
+    });
 })
 
 .onDefault((session) => {

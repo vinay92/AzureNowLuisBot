@@ -84,11 +84,11 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
                 for (var i = 0; i < resourceObjects.length; i++) 
                 {
                     var tempResourceObject = resourceObjects[i]
-                    resourcePriceString += tempResourceObject['<Name>k__BackingField'] + " - Price - " + tempResourceObject['<Price>k__BackingField'] + "$\n";
+                    resourcePriceString += tempResourceObject['<Name>k__BackingField'] + " - Price - " + tempResourceObject['<Price>k__BackingField'] + "$<br />";
 
                 }
                 session.send("The template can be downloaded at - " + templateString);
-                session.send("The suggested resources and price per resource are " + "\n" + resourcePriceString);
+                session.send("The suggested resources and price per resource are " + "<br />" + resourcePriceString);
     });
 })
 

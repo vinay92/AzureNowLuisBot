@@ -53,7 +53,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 })
 
 .matches('AccessControl', (session, args) => {
-    session.send('What is the maximum price for the deployment');
+    session.send('What is the maximum price(In Dollars) for the deployment');
 })
 
 .matches('Price', (session, args) => {

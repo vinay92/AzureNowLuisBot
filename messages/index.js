@@ -78,7 +78,15 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
             method: 'POST'
             }, function (err, res, body) {
                 var templateString = 'The template link is - ' +  body['TemplateLink'];
-                session.send(templateString);
+                var resourceObjects = body['Resources'];
+                String resourcePriceString;
+                for (var i = 0; i < resourceObjects.length; i++) 
+                {
+                    resourcePriceString += resourceObjects[i].Name + " - Price - " + resourceObjects[i].Price + "$\n";
+
+                }
+                session.send("The template can be downloaded at - " + templateString);
+                session.send("The suggested resources and price per resource are " + "\n" + resourcePriceString);
     });
 })
 

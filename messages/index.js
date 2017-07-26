@@ -12,6 +12,7 @@ var request = require('request');
 var querystring = require('querystring');
 
 var useEmulator = (process.env.NODE_ENV == 'development');
+useEmulator = true;
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
     appId: process.env['MicrosoftAppId'],
     appPassword: process.env['MicrosoftAppPassword'],
@@ -78,11 +79,13 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
             method: 'POST'
             }, function (err, res, body) {
                 var templateString = 'The template link is - ' +  body['TemplateLink'];
-                var resourceObjects = body['Resources'];
+                var serviceArchitecture = body['ServiceArchitecture'];
+                var resourceObjects = serviceArchitecture['Resources'];
                 var resourcePriceString = '';
                 for (var i = 0; i < resourceObjects.length; i++) 
                 {
-                    resourcePriceString += resourceObjects[i].Name + " - Price - " + resourceObjects[i].Price + "$\n";
+                    var tempResourceObject = resourceObjects[i]
+                    resourcePriceString += tempResourceObject['<Name>k__BackingField'] + " - Price - " + tempResourceObject['<Price>k__BackingField'] + "$\n";
 
                 }
                 session.send("The template can be downloaded at - " + templateString);

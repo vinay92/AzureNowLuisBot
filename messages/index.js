@@ -62,9 +62,8 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     session.send('I have all the information I need. Generating the ARM template and the price...');
     var data = {
                     "Services" : [
-                        "Website",
-                        "Cache",
-                        "SQLDB"
+                        "HDInsight",
+                        "Data Lake"
                     ],
                     "Price" : 2500,
                     "SessionId" : "04eb7df7-82bf-477c-a350-1a77e3abca67"

@@ -79,7 +79,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
             }, function (err, res, body) {
                 var templateString = 'The template link is - ' +  body['TemplateLink'];
                 var resourceObjects = body['Resources'];
-                String resourcePriceString;
+                var resourcePriceString = '';
                 for (var i = 0; i < resourceObjects.length; i++) 
                 {
                     resourcePriceString += resourceObjects[i].Name + " - Price - " + resourceObjects[i].Price + "$\n";

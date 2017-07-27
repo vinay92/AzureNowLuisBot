@@ -68,7 +68,6 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
         }
     }
 
-    session.send('The Price is ' + price + "$");
     session.send('I have all the information I need. Generating the ARM template and the price...');
     var data = {
                     "Services" : [
@@ -84,7 +83,6 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
                     },
             url: 'http://templatehackbot.azurewebsites.net/api/templates',
             json: data,
-            //body: JSON.stringify(data),
             method: 'POST'
             }, function (err, res, body) {
                 var templateString = 'The template link is - ' +  body['TemplateLink'];

@@ -58,14 +58,24 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 })
 
 .matches('Price', (session, args) => {
-    session.send(JSON.stringify(args));
+    var price = 2500;
+    var entities = args['entities'];
+    for (var i = 0; i < entities.length; i++) {
+        var entityObject = entities[i];
+        if (entityObject['type'] == "Amount") {
+            price = parseInt(entityObject['entity'], 10);
+            break;
+        }
+    }
+
+    session.send('The Price is ' + price + "$");
     session.send('I have all the information I need. Generating the ARM template and the price...');
     var data = {
                     "Services" : [
                         "HDInsight",
                         "Data Lake"
                     ],
-                    "Price" : 2500,
+                    "Price" : price,
                     "SessionId" : "04eb7df7-82bf-477c-a350-1a77e3abca67"
                 };
     request({

@@ -34,27 +34,27 @@ var recognizer = new builder.LuisRecognizer(LuisModelUrl);
 var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
 .matches('AnalyzeDataQuestion', (session, args) => {
-    session.send('How much data do you have?');
+    session.send('Ok, Let\'s get started. How much data do you have?');
 })
 
 .matches('DataSize', (session, args) => {
-    session.send('Do you have structured or unstructured data?');
+    session.send('Alright. Do you have structured or unstructured data?');
 })
 
 .matches('Unstructured', (session, args) => {
-    session.send('Is your data stored on the cloud or locally?');
+    session.send('Is your data already present in the cloud or in on-premise servers?');
 })
 
 .matches('None', (session, args) => {
-    session.send('Is your data stored on the cloud or locally?');
+    session.send('Is your data already present in the cloud or in on-premise servers?');
 })
 
 .matches('Cloud', (session, args) => {
-    session.send('Do you need access control on your data');
+    session.send('That\'s perfect. Do you need access control on your data');
 })
 
 .matches('AccessControl', (session, args) => {
-    session.send('What is the maximum price(In Dollars) for the deployment');
+    session.send('Finally, what is the price you are expecting to spend on this solution?');
 })
 
 .matches('Price', (session, args) => {
@@ -88,7 +88,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
                 }
                 session.send("The template can be downloaded at - " + templateString);
-                session.send("The suggested resources and price per resource are " + "<br />" + resourcePriceString);
+                session.send("The suggested services and price per service are " + "<br />" + resourcePriceString);
     });
 })
 
